@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clock with Images</title>
+    <style>
+        .clock {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 48px;
+        }
+        .digit {
+            width: 50px;
+            height: 100px;
+            background-size: cover;
+        }
+    </style>
+</head>
+<body>
+    <div class="clock" id="clock"></div>
+
+    <script>
+        const clock = document.getElementById('clock');
+
+        function updateClock() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            clock.innerHTML = '';
+            [...hours, ...minutes].forEach(digit => {
+                const digitElement = document.createElement('div');
+                digitElement.classList.add('digit');
+                digitElement.style.backgroundImage = `url('ris2.6/${digit}.png')`;
+                clock.appendChild(digitElement);
+            });
+        }
+
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
+</body>
+</html>

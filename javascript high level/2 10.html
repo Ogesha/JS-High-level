@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mouse Trail</title>
+    <style>
+        .trail {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: url('trail.png') no-repeat;
+            background-size: cover;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        const trailCount = 10;
+        const trails = [];
+
+        for (let i = 0; i < trailCount; i++) {
+            const trail = document.createElement('div');
+            trail.classList.add('trail');
+            document.body.appendChild(trail);
+            trails.push(trail);
+        }
+
+        document.addEventListener('mousemove', (event) => {
+            const { clientX: x, clientY: y } = event;
+            trails.forEach((trail, index) => {
+                setTimeout(() => {
+                    trail.style.left = `${x}px`;
+                    trail.style.top = `${y}px`;
+                }, index * 100);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time in Words</title>
+</head>
+<body>
+    <div id="timeInWords"></div>
+
+    <script>
+        function timeInWords() {
+            const now = new Date();
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+            const period = hours < 12 ? 'morning' : hours < 18 ? 'afternoon' : 'evening';
+            const nextHour = hours % 12 + 1;
+
+            const words = minutes === 0
+                ? `It is ${hours % 12 || 12} o'clock in the ${period}.`
+                : `In about ${60 - minutes} minutes, it will be ${nextHour} o'clock in the ${period}.`;
+
+            document.getElementById('timeInWords').innerText = words;
+        }
+
+        setInterval(timeInWords, 60000);
+        timeInWords();
+    </script>
+</body>
+</html>

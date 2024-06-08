@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browser Info</title>
+</head>
+<body>
+    <div id="info"></div>
+
+    <script>
+        function displayInfo() {
+            const browser = navigator.userAgent;
+            const currentTime = new Date().toLocaleTimeString();
+            const screenWidth = window.innerWidth;
+            const screenHeight = window.innerHeight;
+            const referrer = document.referrer;
+
+            const info = `
+                <p>Browser: ${browser}</p>
+                <p>Current Time: ${currentTime}</p>
+                <p>Screen Resolution: ${screenWidth}x${screenHeight}</p>
+                <p>Referrer: ${referrer}</p>
+            `;
+            document.getElementById('info').innerHTML = info;
+        }
+
+        displayInfo();
+    </script>
+</body>
+</html>

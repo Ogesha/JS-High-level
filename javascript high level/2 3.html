@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flying Fly</title>
+    <style>
+        #fly {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: url('fly.png') no-repeat;
+            background-size: cover;
+            cursor: pointer;
+        }
+        #fly.dead {
+            background: url('dead_fly.png') no-repeat;
+            background-size: cover;
+        }
+    </style>
+</head>
+<body>
+    <div id="fly"></div>
+
+    <script>
+        const fly = document.getElementById('fly');
+        let flyInterval;
+
+        function getRandomPosition() {
+            const x = Math.floor(Math.random() * (window.innerWidth - 50));
+            const y = Math.floor(Math.random() * (window.innerHeight - 50));
+            return { x, y };
+        }
+
+        function moveFly() {
+            const { x, y } = getRandomPosition();
+            fly.style.left = `${x}px`;
+            fly.style.top = `${y}px`;
+        }
+
+        fly.addEventListener('mouseover', moveFly);
+        fly.addEventListener('click', () => {
+            clearInterval(flyInterval);
+            fly.classList.add('dead');
+        });
+
+        flyInterval = setInterval(moveFly, 1000);
+    </script>
+</body>
+</html>

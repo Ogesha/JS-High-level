@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Russian Roulette</title>
+</head>
+<body>
+    <h1>Russian Roulette</h1>
+    <form id="playersForm">
+        <label for="player1">Player 1:</label>
+        <input type="text" id="player1" required>
+        <label for="player2">Player 2:</label>
+        <input type="text" id="player2" required>
+        <button type="button" onclick="startGame()">Start Game</button>
+    </form>
+    <div id="game" style="display: none;">
+        <p id="currentPlayer"></p>
+        <button id="shootButton" onclick="shoot()">Shoot!</button>
+        <p id="result"></p>
+    </div>
+
+    <script>
+        let players = [];
+        let currentPlayerIndex = 0;
+        let bullets = [false, false, false, false, false, true];
+
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        function startGame() {
+            const player1 = document.getElementById('player1').value;
+            const player2 = document.getElementById('player2').value;
+            if (player1 && player2) {
+                players = [player1, player2];
+                currentPlayerIndex = 0;
+                shuffle(bullets);
+                document.getElementById('playersForm').style.display = 'none';
+                document.getElementById('game').style.display = 'block';
+                document.getElementById('currentPlayer').innerText = `${players[currentPlayerIndex]}'s turn`;
+            }
+        }
+
+        function shoot() {
+            if (bullets.pop()) {
+                document.getElementById('result').innerText = `${players[currentPlayerIndex]} is dead!`;
+                document.getElementById('shootButton').disabled = true;
+            } else {
+                document.getElementById('result').innerText = `${players[currentPlayerIndex]} survived!`;
+                currentPlayerIndex = (currentPlayerIndex + 1) % 2;
+                document.getElementById('currentPlayer').innerText = `${players[currentPlayerIndex]}'s turn`;
+            }
+        }
+    </script>
+</body>
+</html>

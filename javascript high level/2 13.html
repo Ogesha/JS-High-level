@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autocomplete Textbox</title>
+    <style>
+        #suggestions {
+            border: 1px solid #ccc;
+            display: none;
+            position: absolute;
+            background: white;
+            width: 200px;
+        }
+        #suggestions div {
+            padding: 8px;
+            cursor: pointer;
+        }
+        #suggestions div:hover {
+            background: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+    <input type="text" id="autocomplete" oninput="showSuggestions()">
+    <div id="suggestions"></div>
+
+    <script>
+        const suggestions = ['Apple', 'Banana', 'Cherry', 'Date', 'Elderberry', 'Fig', 'Grape'];
+
+        function showSuggestions() {
+            const input = document.getElementById('autocomplete').value.toLowerCase();
+            const filtered = suggestions.filter(item => item.toLowerCase().includes(input));
+            const suggestionsBox = document.getElementById('suggestions');
+            suggestionsBox.innerHTML = '';
+            if (input && filtered.length) {
+                filtered.forEach(item => {
+                    const div = document.createElement('div');
+                    div.textContent = item;
+                    div.onclick = () => {
+                        document.getElementById('autocomplete').value = item;
+                        suggestionsBox.innerHTML = '';
+                        suggestionsBox.style.display = 'none';
+                    };
+                    suggestionsBox.appendChild(div);
+                });
+                suggestionsBox.style.display = 'block';
+            } else {
+                suggestionsBox.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

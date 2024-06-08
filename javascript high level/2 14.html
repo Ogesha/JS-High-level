@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rectangle Drawing Tool</title>
+    <style>
+        .rectangle {
+            position: absolute;
+            border: 1px solid #000;
+            background: rgba(0, 0, 255, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <script>
+        let isDrawing = false;
+        let startX = 0;
+        let startY = 0;
+        let rect = null;
+
+        document.addEventListener('mousedown', (event) => {
+            isDrawing = true;
+            startX = event.clientX;
+            startY = event.clientY;
+            rect = document.createElement('div');
+            rect.classList.add('rectangle');
+            document.body.appendChild(rect);
+        });
+
+        document.addEventListener('mousemove', (event) => {
+            if (isDrawing) {
+                const width = event.clientX - startX;
+                const height = event.clientY - startY;
+                rect.style.left = `${startX}px`;
+                rect.style.top = `${startY}px`;
+                rect.style.width = `${width}px`;
+                rect.style.height = `${height}px`;
+            }
+        });
+
+        document.addEventListener('mouseup', () => {
+            isDrawing = false;
+        });
+    </script>
+</body>
+</html>
